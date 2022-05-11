@@ -73,12 +73,16 @@
         }
         @media (pointer:coarse) {
             .copybutton {
-                visibility: visible;
+                visibility: hidden;
             }
+            .alert {
+                background: red;
+                padding: 5px;
         }
     </style>
 </head>
 <body>
+    <div class="alert"></div>
     <h1 class="title">PMMPInstaller</h1>
     <h3>Automatic installer for PocketMine-MP</h3>
 
@@ -105,6 +109,10 @@ window.onmousemove = function (e) {
     tooltipSpan.style.top = e.clientY + 'px';
     tooltipSpan.style.visibility = "visible"
 };
+        
+        if(document.getElementById('alert').classList.background != null) {
+            // mobile alert
+        }
     </script>
 </body>
 </html>
