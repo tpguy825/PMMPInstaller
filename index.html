@@ -27,7 +27,7 @@
         copyLinkBtn.addEventListener('click', function(event) {
             copyTextToClipboard(document.getElementById("link").value);
         });
-     
+     function updatedownloads() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "https://api.countapi.xyz/hit/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3");
     xhr.responseType = "json";
@@ -35,6 +35,8 @@
         document.getElementById('downloadedtimes').value = this.response.value;
     }
     xhr.send();
+     }
+        updatedownloads();
 </script>
     </script>
     <style>
