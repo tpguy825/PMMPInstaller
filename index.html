@@ -27,6 +27,15 @@
         copyLinkBtn.addEventListener('click', function(event) {
             copyTextToClipboard(document.getElementById("link").value);
         });
+     
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://api.countapi.xyz/hit/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3");
+    xhr.responseType = "json";
+    xhr.onload = function() {
+        document.getElementById('downloadedtimes').value = this.response.value;
+    }
+    xhr.send();
+</script>
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
@@ -80,6 +89,7 @@
 </head>
 <body>
     <h1 class="title">PMMPInstaller</h1>
+    <p><div id="downloadedtimes"></div> downloads</p>
     <h3>Automatic installer for PocketMine-MP</h3>
 
     <h2>Usage:</h2>
