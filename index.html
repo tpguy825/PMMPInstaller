@@ -108,28 +108,20 @@ window.onmousemove = function (e) {
     tooltipSpan.style.visibility = "visible"
 };
 
-function updatedownloads() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://api.countapi.xyz/get/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3");
-    xhr.responseType = "json";
-    xhr.onload = function() {
-        document.getElementById('downloadedtimes').src = "https://img.shields.io/badge/downloads-"+xhr.response.value+"-green";
-    }
-    xhr.send();
-     }
-function updateVersion() {
-    var xhr2 = new XMLHttpRequest();
-    xhr2.open("GET", "https://pmmpinstaller.cf/version.json");
-    xhr2.responseType = "json";
-    xhr2.onload = function() {
-        let version = this.response.value;
-        document.getElementById('version').src = "https://img.shields.io/badge/version-"+version.version+"-lightblue";
-        alert(version.version);
-    }
-    xhr2.send();
+    document.getElementById('downloadedtimes').src = "https://img.shields.io/badge/downloads-"+loadFile("https://api.countapi.xyz/get/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3")+"-green";
+    document.getElementById('version').src = "https://img.shields.io/badge/version-"+loadFile("https://pmmpinstaller.cf/version.json").version+"-lightblue";
+        alert("version: "+version.version);
+
+function loadFile(filePath) {
+  var result = null;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", filePath, false);
+  xmlhttp.send();
+  if (xmlhttp.status==200) {
+    result = xmlhttp.response;
+  }
+  return result;
 }
-        updatedownloads();
-        updateVersion();
     </script>
 </body>
 </html>
