@@ -122,10 +122,9 @@ function updateVersion() {
     xhr2.open("GET", "https://pmmpinstaller.cf/version.json");
     xhr2.responseType = "json";
     xhr2.onload = function() {
-        var version = "error";
-        version = xhr2.response.value.version;
-        document.getElementById('version').src = "https://img.shields.io/badge/version-"+version+"-lightblue";
-        alert(version);
+        let version = this.response.value;
+        document.getElementById('version').src = "https://img.shields.io/badge/version-"+version.version+"-lightblue";
+        alert(version.version);
     }
     xhr2.send();
 }
