@@ -110,7 +110,6 @@ window.onmousemove = function (e) {
 
     document.getElementById('downloadedtimes').src = "https://img.shields.io/badge/downloads-"+loadFile("https://api.countapi.xyz/get/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3").value+"-green";
     document.getElementById('version').src = "https://img.shields.io/badge/version-"+JSON.parse(loadFile("https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/version.json")).version+"-lightblue";
-        alert("version: "+version.version);
 
 function loadFile(filePath) {
   var result = null;
