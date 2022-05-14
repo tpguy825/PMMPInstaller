@@ -27,16 +27,6 @@
         copyLinkBtn.addEventListener('click', function(event) {
             copyTextToClipboard(document.getElementById("link").value);
         });
-     function updatedownloads() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://api.countapi.xyz/hit/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3");
-    xhr.responseType = "json";
-    xhr.onload = function() {
-        document.getElementById('downloadedtimes').value = this.response.value;
-    }
-    xhr.send();
-     }
-        updatedownloads();
 </script>
     </script>
     <style>
@@ -91,7 +81,7 @@
 </head>
 <body>
     <h1 class="title">PMMPInstaller</h1>
-    <p><div id="downloadedtimes"></div> downloads</p>
+    <img id="downloadedtimes" />
     <h3>Automatic installer for PocketMine-MP</h3>
 
     <h2>Usage:</h2>
@@ -117,6 +107,17 @@ window.onmousemove = function (e) {
     tooltipSpan.style.top = e.clientY + 'px';
     tooltipSpan.style.visibility = "visible"
 };
+
+function updatedownloads() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://api.countapi.xyz/get/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3");
+    xhr.responseType = "json";
+    xhr.onload = function() {
+        document.getElementById('downloadedtimes').src = "https://img.shields.io/badge/downloads-"+this.response.value+"-green";
+    }
+    xhr.send();
+     }
+        updatedownloads();
     </script>
 </body>
 </html>
