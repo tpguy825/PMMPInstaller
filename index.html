@@ -81,7 +81,7 @@
 </head>
 <body>
     <h1 class="title">PMMPInstaller</h1>
-    <img id="downloadedtimes" /><img id="version" />
+    <img id="downloadedtimes" /> <img id="version" />
     <h3>Automatic installer for PocketMine-MP</h3>
 
     <h2>Usage:</h2>
@@ -118,22 +118,23 @@ function updatedownloads() {
     xhr.send();
      }
 function updateVersion() {
-    var xhr2 = new XMLHttpRequest();
-    xhr2.open("GET", "https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/version.txt");
-    xhr2.responseType = "text";
-    xhr2.onload = function() {
-        var version;
-        if(!this.response.value) {
-            version = "error"
-        } else {
-            version = xhr2.response.value;
-        }
+    var version = loadfile("https://pmmpinstaller.cf/version.txt");
         document.getElementById('version').src = "https://img.shields.io/badge/version-"+version+"-lightblue";
-    }
-    xhr2.send();
+        alert(version);
 }
         updatedownloads();
         updateVersion();
+
+        function loadFile(filePath) {
+  var result = null;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", filePath, false);
+  xmlhttp.send();
+  if (xmlhttp.status==200) {
+    result = xmlhttp.responseText;
+  }
+  return result;
+}
     </script>
 </body>
 </html>
