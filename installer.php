@@ -4,7 +4,7 @@
 // dev mode ignores the c
 if(isset($argv[1]) && $argv[1] === "dev") {
  $dltimes = "null";
- 
+ echo "Dev mode activated";
 } elseif(isset($argv[1]) && $argv[1] === "startfile") {
     $api = json_decode(file_get_contents("https://update.pmmp.io/api"),true);
     $url = $api['download_url'];
