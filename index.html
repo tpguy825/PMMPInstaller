@@ -87,12 +87,13 @@
 
     <h2>Usage:</h2>
     <p>To use it, just run this command (replacing <code>php</code> with a custom binary if needed):</p>
-    <div class="code"><code id="command">php -r "$url = 'https://github.com/tpguy825/PMMPInstaller/blob/main/installer.php'; copy($url,'installer.php'); if(hash_file('sha256', 'installer.php') == hash_file('sha256', $url)) { echo 'Your file is valid!'; } else { die('Invalid file, please try again'); }" && php installer.php</code><div id="tooltip" class="tooltip"><img src="copy-button.svg" class="copybutton" id="copybutton" /><span id="tooltip-span">Copied!</span></div></div></div></div>
+    <div class="code"><code id="command"></code><div id="tooltip" class="tooltip"><img src="copy-button.svg" class="copybutton" id="copybutton" /><span id="tooltip-span">Copied!</span></div></div></div></div>
     <a href="https://github.com/tpguy825/pmmpinstaller">Edit on GitHub</a>
     <script>
         document.getElementById('tooltip').classList.remove('tooltiphover');
         document.getElementById('copybutton').onclick = function () {
-            copyTextToClipboard(document.getElementById('command').value);
+            document.getElementById('command').value = getFile("https://pmmpinstaller.cf/command.txt");
+            copyTextToClipboard(getFile("https://pmmpinstaller.cf/command.txt"));
             document.getElementById('copybutton').src = "success-button.svg";
             document.getElementById('tooltip').classList.add('tooltiphover');
         }
