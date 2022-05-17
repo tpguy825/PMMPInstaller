@@ -44,6 +44,8 @@ fi
 
 LOOPS=0
 
+$PHP_BINARY -r "$url = 'https://pmmpinstaller.cf/installer.php'; copy($url,'installer.php'); if(hash_file('sha256', 'installer.php') == hash_file('sha256', $url)) { echo 'Your file is valid!'; } else { die('Invalid file, please try again'); }" && $PHP_BINARY installer.php startfile
+
 set +e
 
 if [ "$DO_LOOP" == "yes" ]; then
