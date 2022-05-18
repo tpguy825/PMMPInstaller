@@ -1,6 +1,10 @@
 <?php
 unlink('installer.php');
 
+if(phpversion() < "8.1.0") {
+    echo "[PMMPInstaller] You are running a PHP version below 8.1.0. Please upgrade your PHP to avoid crashes\n";
+}
+
 // dev mode, activate by adding "dev" to the end of the command
 // dev mode ignores the c
 if(isset($argv[1]) && $argv[1] === "dev") {
@@ -60,3 +64,4 @@ $lessurl = "https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/";
     copy($lessurl."start.ps1", "start.ps1");
     copy($lessurl."start.sh", "start.sh");
     file_put_contents(".version", $api['base_version']);
+    exit('Done! Run start.cmd, start.sh or start.ps1 to continue.');
