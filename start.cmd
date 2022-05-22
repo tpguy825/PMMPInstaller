@@ -30,7 +30,7 @@ if exist PocketMine-MP.phar (
 	pause
 	exit 1
 )
-%PHP_BINARY% -r "$url = 'https://pmmpinstaller.cf/installer.php'; function getfile() { copy($url,'installer.php'); } getfile(); if(hash_file('sha256', 'installer.php') !== hash_file('sha256', $url)) { invalidfile(); } function invalidfile() { echo '[PMMPInstaller] Note: AutoUpdate tried to check for updates but failed. Trying again...'; getfile() if(hash_file('sha256', 'installer.php') !== hash_file('sha256', $url)) { die('[PMMPInstaller] Error: AutoUpdate tried to update after failing, and failed again. Try re-running the PMMPInstaller command found at https://pmmpinstaller.cf to fix it'); } } exec($argv[1].' installer.php startfile');" %PHP_BINARY%
+%PHP_BINARY% -r "$GLOBALS['url'] = 'https://pmmpinstaller.cf/installer.php'; function getfile() { copy($GLOBALS['url'],'installer.php'); } getfile(); if(hash_file('sha256', 'installer.php') !== hash_file('sha256', $GLOBALS['url'])) { invalidfile(); } function invalidfile() { echo '[PMMPInstaller] Note: AutoUpdate tried to check for updates but failed. Trying again...'; getfile(); if(hash_file('sha256', 'installer.php') !== hash_file('sha256', $GLOBALS['url'])) { file_put_contents(".failed", true); die('[PMMPInstaller] Error: AutoUpdate tried to update after failing, and failed again. Try re-running the PMMPInstaller command found at https://pmmpinstaller.cf to fix it'); } }" && %PHP_BINARY% installer.php startfile
 if exist bin\mintty.exe (
 	start "" bin\mintty.exe -o Columns=88 -o Rows=32 -o AllowBlinking=0 -o FontQuality=3 -o Font="Consolas" -o FontHeight=10 -o CursorType=0 -o CursorBlinks=1 -h error -t "PocketMine-MP" -i bin/pocketmine.ico -w max %PHP_BINARY% %POCKETMINE_FILE% --enable-ansi %*
 ) else (
