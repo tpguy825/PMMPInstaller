@@ -1,31 +1,42 @@
 <?php
-unlink('installer.php');
+// unlink('installer.php');
 
-if(phpversion() < "8.0.0") {
-    echo "[PMMPInstaller] You are running a PHP version below 8.0.0. Please upgrade your PHP to avoid crashes\n";
+if(phpversion() < json_decode(file_get_contents("https://update.pmmp.io/api"),true)['php_version']) {
+    die("[PMMPInstaller] Error: Your PHP version is outdated and cannot run the latest version of PocketMine-MP. Please upgrade your PHP to continue");
 }
 
 // dev mode, activate by adding "dev" to the end of the command
-// dev mode ignores the c
+// dev mode ignores the counter
 if(isset($argv[1]) && $argv[1] === "dev") {
  $dltimes = "null";
  echo "\nDev mode activated\n";
 } elseif(isset($argv[1]) && $argv[1] === "startfile") {
+
+    if(file_exists(".failed")) {
+        if(file_get_contents(".failed")) {
+            unlink('.failed');
+            die();
+        }
+    }
+
     $api = json_decode(file_get_contents("https://update.pmmp.io/api"),true);
     $oldversion = file_get_contents(".version");
     $version = $api['base_version'];
+
+    echo "Old version is $oldversion, new is $version";
     
-    if($version < $oldversion) {
+    if($version > $oldversion) {
+        echo "updating";
         $lessurl = "https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/";
         $url = $api['download_url'];
         unlink('PocketMine-MP.phar');
         copy($url, "PocketMine-MP.phar");
-        echo "[PMMPInstaller] Updated from version $oldversion to $version";
-        echo "\nSuccess! You can now run 'start.cmd', 'start.ps1' or 'start.sh'";
         file_put_contents(".version", $version);
-        exit();
+        echo "[PMMPInstaller] Updated from version $oldversion to $version";
+        die();
     } else {
-        exit('[PMMPInstaller] AutoUpdate: You\'re up to date!');
+        echo "ignored";
+        die("[PMMPInstaller] AutoUpdate: You're up to date!");
     }
 }
 
