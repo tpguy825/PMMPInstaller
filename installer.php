@@ -1,8 +1,8 @@
 <?php
 unlink('installer.php');
 
-if(phpversion() < "8.1.0") {
-    echo "[PMMPInstaller] You are running a PHP version below 8.1.0. Please upgrade your PHP to avoid crashes\n";
+if(phpversion() < "8.0.0") {
+    echo "[PMMPInstaller] You are running a PHP version below 8.0.0. Please upgrade your PHP to avoid crashes\n";
 }
 
 // dev mode, activate by adding "dev" to the end of the command
@@ -15,7 +15,7 @@ if(isset($argv[1]) && $argv[1] === "dev") {
     $oldversion = file_get_contents(".version");
     $version = $api['base_version'];
     
-    if($version > $oldversion) {
+    if($version < $oldversion) {
         $lessurl = "https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/";
         $url = $api['download_url'];
         unlink('PocketMine-MP.phar');
