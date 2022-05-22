@@ -1,5 +1,6 @@
 <?php
 // unlink('installer.php');
+echo "\n";
 
 if(phpversion() < json_decode(file_get_contents("https://update.pmmp.io/api"),true)['php_version']) {
     die("[PMMPInstaller] Error: Your PHP version is outdated and cannot run the latest version of PocketMine-MP. Please upgrade your PHP to continue");
