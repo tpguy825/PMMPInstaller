@@ -23,21 +23,16 @@ if(isset($argv[1]) && $argv[1] === "dev") {
     $api = json_decode(file_get_contents("https://update.pmmp.io/api"),true);
     $oldversion = file_get_contents(".version");
     $version = $api['base_version'];
-
-    echo "Old version is $oldversion, new is $version";
-    
     if($version > $oldversion) {
-        echo "updating";
         $lessurl = "https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/";
         $url = $api['download_url'];
         unlink('PocketMine-MP.phar');
         copy($url, "PocketMine-MP.phar");
         file_put_contents(".version", $version);
-        echo "[PMMPInstaller] Updated from version $oldversion to $version";
+        echo "[PMMPInstaller] Updated from version $oldversion to $version\n";
         die();
     } else {
-        echo "ignored";
-        die("[PMMPInstaller] AutoUpdate: You're up to date!");
+        die("[PMMPInstaller] AutoUpdate: You're up to date!\n");
     }
 }
 
