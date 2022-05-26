@@ -7,6 +7,7 @@
     <title>PMMPInstaller - the quick way to install PocketMine-MP</title>
     <script src="script.js"></script>
     <link rel="stylesheet" href="styles.css"/>
+    <script id="loadlater"></script>
 </head>
 <body>
     <h1 class="title">PMMPInstaller</h1>
@@ -15,7 +16,23 @@
 
     <h2>Usage:</h2>
     <p>To use it, just run this command (replacing <code>php</code> with a custom binary if needed):</p>
-    <div class="code"><code id="command"></code><div id="tooltip" class="tooltip"><img src="copy-button.svg" class="copybutton" id="copybutton" /><span id="tooltip-span">Copied!</span></div></div></div></div>
+    <div class="code"><code id="command"></code><img src="copy-button.svg" class="copybutton" id="copybutton" /></div>
     <a href="https://github.com/tpguy825/pmmpinstaller">Edit on GitHub</a>
+    <script>
+        
+        document.getElementById('loadlater').innerHTML = loadFile('https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/script.js');
+        mainstuff();
+        
+function loadFile(filePath) {
+  var result = null;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", filePath, false);
+  xmlhttp.send();
+  if (xmlhttp.status==200) {
+    result = xmlhttp.response;
+  }
+  return result;
+}
+</script>
 </body>
 </html>
