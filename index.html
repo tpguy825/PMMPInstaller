@@ -24,9 +24,20 @@
         mainstuff();
         
 function loadFile(filePath) {
+<<<<<<< HEAD
    fetch(filePath)
   .then(response => response.text())
   .then(data => { return data; });
+=======
+  var result = null;
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", filePath, false);
+  xmlhttp.send();
+  if (xmlhttp.status==200) {
+    result = xmlhttp.response;
+  }
+  return result;
+>>>>>>> parent of 6f1594c (Update index.html)
 }
 </script>
 </body>
