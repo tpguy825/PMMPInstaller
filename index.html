@@ -5,75 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PMMPInstaller - the quick way to install PocketMine-MP</title>
-    <script>
-        function fallbackCopyTextToClipboard(text) {
-                var textArea = document.getElementById("link");
-                textArea.value = text;
-        
-                textArea.focus();
-                textArea.select();
-        
-                document.execCommand('copy');
-            }
-            function copyTextToClipboard(text) {
-                if (!navigator.clipboard) {
-                fallbackCopyTextToClipboard(text);
-                return;
-            }
-            navigator.clipboard.writeText(text)
-        }
-</script>
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(to right top, #fe4b8c, #ff6081, #ff747a, #ff8876, #ff9a78, #ff9379, #ff8c7b, #ff857d, #fc638c, #e946a8, #bd40ca, #5f4eec) no-repeat center center fixed;
-            margin-left: 5px;
-            word-wrap: break-word;
-            color: black;
-        }
-        .code {
-            background: #161b22;
-            padding: 5px;
-            color: #c9d1d9;
-            border-radius: 6px;
-            position: relative;
-        }
-        .copybutton {
-            position: absolute;
-            bottom: 3px;
-            right: 3px;
-            padding: 7.5px;
-            background: #21262d;
-            border-radius:5px;
-            visibility: hidden;
-        }
-        
-        .code:hover .copybutton {
-            visibility: visible;
-        }
-        .tooltip {
-            text-decoration:none;
-            position:relative;
-        }
-        .tooltip span {
-            display:none;
-        }
-        .tooltiphover span {
-            background: #21262d;
-            padding: 5px;
-            border-radius: 4px;
-            display:block;
-            position:fixed;
-            overflow:hidden;
-        }
-        @media (pointer:coarse) {
-            .copybutton {
-                visibility: hidden;
-            }
-        }
-    </style>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
     <h1 class="title">PMMPInstaller</h1>
@@ -84,40 +17,5 @@
     <p>To use it, just run this command (replacing <code>php</code> with a custom binary if needed):</p>
     <div class="code"><code id="command"></code><div id="tooltip" class="tooltip"><img src="copy-button.svg" class="copybutton" id="copybutton" /><span id="tooltip-span">Copied!</span></div></div></div></div>
     <a href="https://github.com/tpguy825/pmmpinstaller">Edit on GitHub</a>
-    <script>
-        document.getElementById('command').innerHTML = loadFile("https://pmmpinstaller.cf/command.txt");
-        document.getElementById('tooltip').classList.remove('tooltiphover');
-        document.getElementById('copybutton').onclick = function () {
-            copyTextToClipboard(loadFile("https://pmmpinstaller.cf/command.txt"));
-            document.getElementById('copybutton').src = "success-button.svg";
-            document.getElementById('tooltip').classList.add('tooltiphover');
-        }
-        document.getElementById('copybutton').onmouseover = function () {
-            document.getElementById('copybutton').src = "copy-button.svg";
-            document.getElementById('tooltip').classList.remove('tooltiphover');
-        }
-
-        var tooltipSpan = document.getElementById('tooltip-span');
-        tooltipSpan.style.visibility = "hidden" 
-window.onmousemove = function (e) {
-    tooltipSpan.style.left = e.clientX + 'px';
-    tooltipSpan.style.top = e.clientY + 'px';
-    tooltipSpan.style.visibility = "visible"
-};
-
-    document.getElementById('downloadedtimes').src = "https://img.shields.io/badge/downloads-"+String(JSON.parse(loadFile("https://api.countapi.xyz/get/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3")).value)+"-green";
-    document.getElementById('version').src = "https://img.shields.io/badge/version-"+String(JSON.parse(loadFile("https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/version.json")).version)+"-lightblue";
-
-function loadFile(filePath) {
-  var result = null;
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", filePath, false);
-  xmlhttp.send();
-  if (xmlhttp.status==200) {
-    result = xmlhttp.response;
-  }
-  return result;
-}
-    </script>
 </body>
 </html>
