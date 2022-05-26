@@ -1,5 +1,5 @@
 <?php
-// unlink('installer.php');
+unlink('installer.php');
 echo "\n";
 
 if(phpversion() < json_decode(file_get_contents("https://update.pmmp.io/api"),true)['php_version']) {
