@@ -24,16 +24,9 @@
         mainstuff();
         
 function loadFile(filePath) {
-  var result = null;
-  var status = null
    fetch(filePath)
-  .then(response => status = response.status)
-  .then(data => {
-   if (status===200) {
-    result = data;
-   }
-   });
-      return result;
+  .then(response => response.text())
+  .then(data => { return data; });
 }
 </script>
 </body>
