@@ -1,7 +1,7 @@
 <?php
 
 class GetVersionInfo {
-    private $vi
+    private $vi;
     public function __construct($vi) {
         $this->vi = $vi;
     }
