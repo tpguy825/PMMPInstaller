@@ -2,8 +2,9 @@
 unlink('installer.php');
 echo "\n";
 
-if(phpversion() < json_decode(file_get_contents("https://update.pmmp.io/api"),true)['php_version']) {
-    die("[PMMPInstaller] Error: Your PHP version is outdated and cannot run the latest version of PocketMine-MP. Please upgrade your PHP to continue");
+$phpversion = json_decode(file_get_contents("https://update.pmmp.io/api"),true)['php_version'];
+if(phpversion() < $phpversion) {
+    die("[PMMPInstaller] Error: Your PHP version (".phpversion().") is outdated and cannot run the latest version of PocketMine-MP. Please upgrade your PHP to at least $phpversion to continue");
 }
 
 // dev mode, activate by adding "dev" to the end of the command
@@ -55,14 +56,10 @@ $lessurl = "https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/";
         }
     }
     if(!isset($dltimes)) { $dltimes = json_decode(file_get_contents("https://api.countapi.xyz/update/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3?amount=1"),true)['value']; }
-    
-    $dltimesend =(int) mb_substr($dltimes, strlen($dltimes)-1);
-    
-    if($dltimesend === 1) { $dltimes = $dltimes."st"; } elseif($dltimesend === 2) { $dltimes = $dltimes."nd"; } elseif($dltimesend === 3) { $dltimes = $dltimes."rd"; } else { $dltimes = $dltimes."th"; }
 
     $installerversion = json_decode(file_get_contents("https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/version.json"), true)['version'];
 
-    echo "Welcome to PMMPInstaller by tpguy825!\n\nYou are using version $installerversion and was the $dltimes person to download this.\n\n"; 
+    echo "Welcome to PMMPInstaller by tpguy825!\n\nYou are using version $installerversion.\n\n"; 
 
     echo "Downloading latest PMMP version (".$api['base_version'].") for MC version (".$api['mcpe_version'].")\n";
 
