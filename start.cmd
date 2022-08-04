@@ -32,7 +32,7 @@ if exist PocketMine-MP.phar (
 )
 
 REM This is for the PMMPInstaller AutoInstaller feature. To turn it off, set it to 'false'
-set AutoUpdater=false
+set AutoUpdater=true
 if %AutoUpdater% == true (
 	%PHP_BINARY% -r "function geturl() { return 'https://pmmpinstaller.cf/installer.php'; } function getfile() { copy(geturl(),'installer.php'); } getfile(); if(hash_file('sha256', 'installer.php') !== hash_file('sha256', geturl())) { invalidfile(); } function invalidfile() { echo '[PMMPInstaller] Note: AutoUpdate tried to check for updates but failed. Trying again...'; getfile(); if(hash_file('sha256', 'installer.php') !== hash_file('sha256', geturl())) { file_put_contents('.failed', true); die('[PMMPInstaller] Error: AutoUpdate tried to update after failing, and failed again. Try re-running the PMMPInstaller command found at https://pmmpinstaller.cf to fix it'); } }" %AutoUpdater% && %PHP_BINARY% installer.php startfile
 )
