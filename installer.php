@@ -55,17 +55,36 @@ $lessurl = "https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/";
             die("[PMMPInstaller] Error: You are already up to date!\n[PMMPInstaller] If you do not have an install here try deleting '.version'");
         }
     }
+    
+    function input($prompt = null, $length = 1024){
+        if($prompt !== null){
+            echo $prompt;
+        }
+        $fp = fopen("php://stdin","r");
+        $line = @rtrim(fgets($fp, $length));
+        return $line;
+    }
+
     if(!isset($dltimes)) { $dltimes = json_decode(file_get_contents("https://api.countapi.xyz/update/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3?amount=1"),true)['value']; }
 
     $installerversion = json_decode(file_get_contents("https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/version.json"), true)['version'];
 
-    echo "Welcome to PMMPInstaller by tpguy825!\n\nYou are using version $installerversion.\n\n"; 
+    echo "Welcome to PMMPInstaller by tpguy825!\n\nYou are using version $installerversion.\n"; 
+    echo "Downloading latest PMMP version (".$api['base_version'].") for MC version (".$api['mcpe_version'].")\n\n";
 
-    echo "Downloading latest PMMP version (".$api['base_version'].") for MC version (".$api['mcpe_version'].")\n";
+    $autoupdate = input("Would you like to enable the AutoUpdate feature? This keeps your PMMP phar up to date (Y/n): ");
 
     copy($url, "PocketMine-MP.phar");
-    copy($lessurl."start.cmd", "start.cmd");
-    copy($lessurl."start.ps1", "start.ps1");
-    copy($lessurl."start.sh", "start.sh");
     file_put_contents(".version", $api['base_version']);
+
+    if($autoupdate == "n") {
+        copy($lessurl."start.cmd", "start.cmd");
+        copy($lessurl."start.ps1", "start.ps1");
+        copy($lessurl."start.sh", "start.sh");
+    } else {
+        copy($lessurl."noautoupdate/start.cmd", "start.cmd");
+        copy($lessurl."noautoupdate/start.ps1", "start.ps1");
+        copy($lessurl."noautoupdate/start.sh", "start.sh");
+    }
+
     exit('Done! Run start.cmd, start.sh or start.ps1 to continue.');
