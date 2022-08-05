@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 DIR="$(cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 cd "$DIR"
+#This enables PMMPInstaller's AutoUpdate feature. To disable, replace 'true' with 'false'
+AutoUpdater = true
 
 while getopts "p:f:l" OPTION 2> /dev/null; do
 	case ${OPTION} in
@@ -42,9 +44,11 @@ if [ "$POCKETMINE_FILE" == "" ]; then
 	fi
 fi
 
-LOOPS=0
+if ["$AutoUpdater" == true]; then
+	$PHP_BINARY -r "$url = 'https://pmmpinstaller.cf/installer.php'; copy($url,'installer.php'); if(hash_file('sha256', 'installer.php') == hash_file('sha256', $url)) { echo 'Your file is valid!'; } else { die('Invalid file, please try again'); }" && $PHP_BINARY installer.php startfile
+fi
 
-$PHP_BINARY -r "$url = 'https://pmmpinstaller.cf/installer.php'; copy($url,'installer.php'); if(hash_file('sha256', 'installer.php') == hash_file('sha256', $url)) { echo 'Your file is valid!'; } else { die('Invalid file, please try again'); }" && $PHP_BINARY installer.php startfile
+LOOPS=0
 
 set +e
 
