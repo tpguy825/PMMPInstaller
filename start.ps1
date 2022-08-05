@@ -3,6 +3,8 @@ param (
 	[string]$php = "",
 	[switch]$Loop = $false,
 	[string]$file = "",
+	# Enables PMMPInstaller's AutoUpdater feature. To disable, change $true to $false
+	[switch]$AutoUpdater = $true,
 	[string][Parameter(ValueFromRemainingArguments)]$extraPocketMineArgs
 )
 
@@ -36,7 +38,9 @@ function StartServer{
 	iex $command
 }
 
-$php -r "$url = 'https://pmmpinstaller.cf/installer.php'; copy($url,'installer.php'); if(hash_file('sha256', 'installer.php') == hash_file('sha256', $url)) { echo 'Your file is valid!'; } else { die('Invalid file, please try again'); }" && $php installer.php startfile
+if($AutoUpdater -eq $true) {
+	$php -r "$url = 'https://pmmpinstaller.cf/installer.php'; copy($url,'installer.php'); if(hash_file('sha256', 'installer.php') == hash_file('sha256', $url)) { echo 'Your file is valid!'; } else { die('Invalid file, please try again'); }" && $php installer.php startfile
+}
 
 $loops = 0
 
