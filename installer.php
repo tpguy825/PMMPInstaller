@@ -1,5 +1,5 @@
 <?php
-unlink('installer.php');
+unlink(__FILE__);
 echo "\n";
 
 $phpversion = json_decode(file_get_contents("https://update.pmmp.io/api"),true)['php_version'];
@@ -77,14 +77,14 @@ $lessurl = "https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/";
     copy($url, "PocketMine-MP.phar");
     file_put_contents(".version", $api['base_version']);
 
-    if($autoupdate == "n") {
-        copy($lessurl."start.cmd", "start.cmd");
-        copy($lessurl."start.ps1", "start.ps1");
-        copy($lessurl."start.sh", "start.sh");
-    } else {
+    if($autoupdate === "n") {
         copy($lessurl."noautoupdate/start.cmd", "start.cmd");
         copy($lessurl."noautoupdate/start.ps1", "start.ps1");
         copy($lessurl."noautoupdate/start.sh", "start.sh");
+    } else {
+        copy($lessurl."start.cmd", "start.cmd");
+        copy($lessurl."start.ps1", "start.ps1");
+        copy($lessurl."start.sh", "start.sh");
     }
 
     exit('Done! Run start.cmd, start.sh or start.ps1 to continue.');
