@@ -70,7 +70,7 @@ $lessurl = "https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/";
 
     $installerversion = json_decode(file_get_contents("https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/version.json"), true)['version'];
 
-    echo "Welcome to PMMPInstaller by tpguy825!\n\nYou are using version $installerversion.\n"; 
+    echo "Welcome to \x1B[35mPMMPInstaller\033[0m by \x1B[35mtpguy825\033[0m!\n\nYou are using version \x1B[36m$installerversion\033[0m.\n"; 
     echo "Downloading latest PMMP version (\x1B[36m".$api['base_version']."\033[0m) for MC version (\x1B[36m".$api['mcpe_version']."\033[0m)\n\n";
 
     $autoupdate = input("Would you like to enable the AutoUpdate feature? This keeps your PMMP phar up to date (Y/n): ");
