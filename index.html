@@ -24,7 +24,7 @@
         mainstuff();
         
 function loadFile(filePath) {
-  fetch(filePath).then(response => response.text()).done(text => {
+  fetch(filePath).then(response => response.text()).then(text => {
     return text;
   }).catch(error => {
     console.log(error);
