@@ -1,24 +1,24 @@
+function fallbackCopyTextToClipboard(text) {
+  var textArea = document.createElement("copy");
+  textArea.value = text;
+        
+  textArea.focus();
+  textArea.select();
+        
+  document.execCommand('copy');
+}
+function copyTextToClipboard(text) {
+  if (!navigator.clipboard) {
+    fallbackCopyTextToClipboard(text);
+    return;
+  }
+  navigator.clipboard.writeText(text)
+}
 
-                function fallbackCopyTextToClipboard(text) {
-                var textArea = document.getElementById("link");
-                textArea.value = text;
-        
-                textArea.focus();
-                textArea.select();
-        
-                document.execCommand('copy');
-            }
-            function copyTextToClipboard(text) {
-                if (!navigator.clipboard) {
-                fallbackCopyTextToClipboard(text);
-                return;
-            }
-            navigator.clipboard.writeText(text)
-        }
 function mainstuff() {
-        document.getElementById('command').innerHTML = loadFile("https://pmmpinstaller.cf/command.txt");
+        document.getElementById('command').innerText = loadFile("https://pmmpinstaller.cf/command.txt");
         document.getElementById('copybutton').onclick = function () {
-            copyTextToClipboard(loadFile("https://pmmpinstaller.cf/command.txt"));
+            copyTextToClipboard(document.getElementById("command").innerText);
             document.getElementById('copybutton').src = "success-button.svg";
         }
         document.getElementById('copybutton').onmouseover = function () {
