@@ -23,7 +23,7 @@
         mainstuff();
         
 function loadFile(filePath) {
-  $.get("demo_test.asp", function(data, status){
+   $.get(filePath, function(data, status){
     if(status === "success") {
         return data
     } else {
