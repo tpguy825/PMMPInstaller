@@ -23,13 +23,20 @@
         mainstuff();
         
 function loadFile(filePath) {
+   var success = null, result = null;
    $.get(filePath, function(data, status){
     if(status === "success") {
-        return data
+        success = true;
+        result = data
     } else {
         console.error("GET "+filePath+" failed: "+status)
+        success = false
+        result = status
     }
   });
+  if(success === true && result !== null) {
+      return result;
+  }
 }
 </script>
 </body>
