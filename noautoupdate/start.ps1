@@ -3,8 +3,8 @@ param (
 	[string]$php = "",
 	[switch]$Loop = $false,
 	[string]$file = "",
-	# Enables PMMPInstaller's AutoUpdater feature. To disable, change $true to $false
-	[switch]$AutoUpdater = $true,
+	# Enables PMMPInstaller's AutoUpdater feature. To disable, change $false to $true
+	[switch]$AutoUpdater = $false,
 	[string][Parameter(ValueFromRemainingArguments)]$extraPocketMineArgs
 )
 

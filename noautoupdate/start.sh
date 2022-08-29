@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 DIR="$(cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 cd "$DIR"
-#This enables PMMPInstaller's AutoUpdate feature. To disable, replace 'true' with 'false'
-AutoUpdater = true
+#This enables PMMPInstaller's AutoUpdate feature. To enable, replace 'false' with 'true'
+AutoUpdater = false
 
 while getopts "p:f:l" OPTION 2> /dev/null; do
 	case ${OPTION} in
