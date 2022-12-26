@@ -1,5 +1,5 @@
 <?php
-// unlink(__FILE__);
+unlink(__FILE__);
 echo "\n";
 $api = json_decode(file_get_contents("https://update.pmmp.io/api"), true);
 $phpversion = $api['php_version'];
