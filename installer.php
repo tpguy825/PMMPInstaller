@@ -1,6 +1,6 @@
 <?php
 unlink(__FILE__);
-echo "\n";
+// echo "\n";
 $api = json_decode(file_get_contents("https://update.pmmp.io/api"), true);
 $phpversion = $api['php_version'];
 if(phpversion() < $phpversion) {
@@ -50,7 +50,7 @@ $url = $api['download_url'];
 $giturl = "https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/";
     
 if(file_exists(".version")) { 
-    if(file_get_contents(".version") < $api['base_version']) {
+    if(isnewer(file_get_contents(".version"), $api['base_version'])) {
         echo "[PMMPInstaller] Updating...";
         copy($url, "PocketMine-MP.phar");
         copy($giturl."start.cmd", "start.cmd");
