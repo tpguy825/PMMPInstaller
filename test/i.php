@@ -1,6 +1,5 @@
-#!/usr/bin/php
 <?php
-if(__FILE__ != "Standard input code") unlink(__FILE__);
+unlink(__FILE__);
 // echo "\n";
 $api = json_decode(file_get_contents("https://update.pmmp.io/api"), true);
 $phpversion = $api['php_version'];
@@ -21,10 +20,10 @@ function isnewer(string $older, string $newer): bool {
 
 // dev mode, activate by adding "dev" to the end of the command
 // dev mode ignores the counter
-if(isset($argv[1]) && $argv[1] == "dev") {
+if(isset($argv[1]) && $argv[1] === "dev") {
  	$dltimes = "null";
  	echo "\n\x1B[94mDev mode activated\033[0m\n";
-} elseif(isset($argv[1]) && $argv[1] == "startfile") {
+} elseif(isset($argv[1]) && $argv[1] === "startfile") {
 
     if(file_exists(".failed")) {
         if(file_get_contents(".failed")) {
@@ -66,7 +65,7 @@ if(file_exists(".version")) {
 }
 
 function input($prompt = null, $length = 1024){
-    if($prompt != null){
+    if($prompt !== null){
         echo $prompt;
     }
     $fp = fopen("php://stdin","r");
@@ -74,14 +73,17 @@ function input($prompt = null, $length = 1024){
     return $line;
 }
 
-$installerversion = json_decode(file_get_contents($giturl."version.json"), true)['version'];
+// Increase download count by 1
+if(!isset($dltimes)) { $dltimes = json_decode(file_get_contents("https://api.countapi.xyz/update/pmmpinstaller.cf/5b01a783-a15f-4aa3-a534-36cc79988fe3?amount=1"),true)['value']; }
+
+$installerversion = json_decode(file_get_contents("https://raw.githubusercontent.com/tpguy825/PMMPInstaller/main/version.json"), true)['version'];
 echo "Welcome to \x1B[35mPMMPInstaller\033[0m by \x1B[35mtpguy825\033[0m!\n\nYou are using version \x1B[36m$installerversion\033[0m.\n"; 
 echo "Downloading latest PMMP version (\x1B[36m".$api['base_version']."\033[0m) for MC version (\x1B[36m".$api['mcpe_version']."\033[0m)\n\n";
 $autoupdate = input("Would you like to enable the AutoUpdate feature? This keeps your PMMP phar up to date (Y/n): ");
 copy($url, "PocketMine-MP.phar");
 file_put_contents(".version", $api['base_version']);
 
-if($autoupdate == "n") {
+if($autoupdate === "n") {
     copy($giturl."noautoupdate/start.cmd", "start.cmd");
     copy($giturl."noautoupdate/start.ps1", "start.ps1");
     copy($giturl."noautoupdate/start.sh", "start.sh");

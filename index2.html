@@ -1,43 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PMMPInstaller - the quick way to install PocketMine-MP</title>
-    <script src="script.js"></script>
-    <link rel="stylesheet" href="styles.css"/>
-    <script src="script.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-</head>
-<body>
-    <h1 class="title">PMMPInstaller</h1>
-    <img width="90px" height="20px" id="downloadedtimes" /> <img width="90px" height="20px" id="version" />
-    <h3>Automatic installer for PocketMine-MP</h3>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>PMMPInstaller - the quick way to install PocketMine-MP</title>
+		<script src="script.js"></script>
+		<link rel="stylesheet" href="styles.css" />
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<h1 class="title">PMMPInstaller</h1>
+		<h3>Automatic installer for PocketMine-MP</h3>
 
-    <h2>Usage:</h2>
-    <p>To use it, just run this command (replacing <code>php</code> with a custom binary if needed):</p>
-    <div class="code"><code id="command"></code><img src="copy-button.svg" class="copybutton" id="copybutton" /></div>
-    <a href="https://github.com/tpguy825/pmmpinstaller">Edit on GitHub</a>
-    <script>
-        mainstuff();
-        
-function loadFile(filePath) {
-   var success = null, result = null;
-   $.get(filePath, function(data, status){
-    if(status === "success") {
-        success = true;
-        result = data
-    } else {
-        console.error("GET "+filePath+" failed: "+status)
-        success = false
-        result = status
-    }
-  });
-  if(success === true && result !== null) {
-      return result;
-  }
-}
-</script>
-</body>
+		<h2>Usage:</h2>
+		<p>To use it, just run this command (replacing <code>php</code> with a custom binary if needed):</p>
+		<div class="code">
+			<code id="command">
+				php -r "copy('https://tpguy825.github.io/PMMPInstaller/installer.php','i.php');" && php i.php
+			</code>
+			<img src="copy-button.svg" class="copybutton" id="copybutton" />
+		</div>
+		<a href="https://github.com/tpguy825/pmmpinstaller">Edit on GitHub</a>
+		<script>
+			// @ts-check
+			mainstuff();
+			/**
+			 * @param {string} text
+			 */
+			function fallbackCopyTextToClipboard(text) {
+				var textArea = document.createElement("input");
+				textArea.value = text;
+
+				textArea.focus();
+				textArea.select();
+
+				document.execCommand("copy");
+			}
+			/**
+			 * @param {string} text
+			 */
+			function copyTextToClipboard(text) {
+				if (!navigator.clipboard) {
+					fallbackCopyTextToClipboard(text);
+					return;
+				}
+				navigator.clipboard.writeText(text);
+			}
+
+			function q(e) {
+				return document.querySelector(e);
+			}
+
+			function mainstuff() {
+				q("img").onclick = function () {
+					copyTextToClipboard(q("code").innerText);
+					q("img").src = "success-button.svg";
+					setTimeout(() => {
+						q("img").src = "copy-button.svg";
+					}, 5000);
+				};
+			}
+		</script>
+	</body>
 </html>
+
